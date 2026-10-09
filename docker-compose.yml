@@ -1,0 +1,23 @@
+services:
+  appointment-engine:
+    build: .
+    container_name: appointment-engine
+    restart: unless-stopped
+    env_file:
+      - .env.local
+    networks:
+      - default
+      - coolify-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.appointment-engine.rule=Host(`appointment-engine.92.5.100.48.nip.io`)"
+      - "traefik.http.routers.appointment-engine.entrypoints=https"
+      - "traefik.http.routers.appointment-engine.tls=true"
+      - "traefik.http.routers.appointment-engine.tls.certresolver=letsencrypt"
+      - "traefik.http.services.appointment-engine.loadbalancer.server.port=3000"
+      - "traefik.docker.network=3kzforlisgqsxtaqgh3zwmbr"
+
+networks:
+  coolify-proxy:
+    external: true
+    name: 3kzforlisgqsxtaqgh3zwmbr

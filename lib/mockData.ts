@@ -1,4 +1,5 @@
-export const SERVICES=[{id:'haircut',name:'Haircut',minutes:60},{id:'consult',name:'Consultation',minutes:30},{id:'colour',name:'Colour & style',minutes:90}];
+export const SERVICES=[{id:'initial',name:'Initial Consultation',minutes:60},{id:'followup',name:'Follow-up Consultation',minutes:30},{id:'strategy',name:'Strategy Session',minutes:90}];
+export const STAFF=[{id:'alex',name:'Alex Johnson'}];
 export type Day={iso:string;dow:string;n:number};
 export function nextDays(count=7):Day[]{const out:Day[]=[];const d=new Date();
   while(out.length<count){d.setDate(d.getDate()+1);if(d.getDay()===0)continue;

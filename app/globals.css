@@ -1,6 +1,7 @@
 @tailwind base;@tailwind components;@tailwind utilities;
 html{scroll-behavior:smooth}
-body{@apply bg-white text-ink antialiased overflow-x-hidden}
+body{@apply bg-white text-ink antialiased overflow-x-clip}
+@layer base{.grid{grid-template-columns:minmax(0,1fr)}.grid>*{min-width:0}}
 @layer components{
 .wrap{@apply mx-auto w-full max-w-6xl px-5 sm:px-8}
 .h2{@apply text-3xl sm:text-[2.6rem] font-semibold tracking-[-0.03em] leading-[1.08] text-balance}
