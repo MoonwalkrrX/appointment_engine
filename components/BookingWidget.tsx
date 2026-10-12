@@ -38,7 +38,7 @@ export default function BookingWidget(){
   const mins=services.find(x=>x.id===svc)?.minutes;
   return(
   <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-[0_30px_70px_-30px_rgba(15,18,24,.3)] sm:p-7" aria-live="polite">
-    <div className="mb-5"><p className="text-xs text-slate-500">Appointment Engine</p>
+    <div className="mb-5"><p className="text-xs text-slate-500">BookPilot</p>
       <h3 className="text-xl font-semibold tracking-tight">{moving?'Choose a new time':'Book an appointment'}</h3></div>
     {bootErr&&<p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{bootErr}</p>}
     {view==='pick'&&!bootErr&&<div className="space-y-5">

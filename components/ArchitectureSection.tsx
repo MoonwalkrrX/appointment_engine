@@ -4,11 +4,11 @@ export default function ArchitectureSection(){return(
   <section className="bg-ink py-20 text-white sm:py-28"><div className="wrap grid items-center gap-12 lg:grid-cols-2">
     <div><h2 className="h2">More than a booking page.</h2>
       <p className="mt-5 max-w-lg text-lg text-white/70">Calendly and traditional scheduling tools focus primarily on letting someone choose a time.</p>
-      <p className="mt-4 max-w-lg text-lg text-white">Appointment Engine is designed as the appointment infrastructure underneath a business’s workflow.</p></div>
+      <p className="mt-4 max-w-lg text-lg text-white">BookPilot is designed as the appointment infrastructure underneath a business’s workflow.</p></div>
     <div className="rounded-3xl border border-white/10 bg-white/[.03] p-5 text-center sm:p-8">
       <div className="mx-auto w-fit rounded-xl border border-white/15 px-5 py-2 text-sm font-medium">Customer</div><Arrow/>
       <Chips c={['Website','Booking link','AI','WhatsApp','Other channels']}/><Arrow/>
-      <div className="rounded-2xl bg-accent p-5"><p className="text-lg font-semibold">Appointment Engine</p><div className="mt-3"><Chips c={['Availability','Booking','Cancellation','Rescheduling']}/></div></div><Arrow/>
+      <div className="rounded-2xl bg-accent p-5"><p className="text-lg font-semibold">BookPilot</p><div className="mt-3"><Chips c={['Availability','Booking','Cancellation','Rescheduling']}/></div></div><Arrow/>
       <div className="mx-auto w-fit rounded-xl border border-white/15 px-5 py-2 text-sm font-medium">Business database</div><Arrow/>
       <Chips c={['Automations','Notifications','Staff']}/></div>
   </div></section>)}

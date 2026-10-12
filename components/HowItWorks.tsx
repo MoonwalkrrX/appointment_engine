@@ -1,6 +1,6 @@
 const S=[
  ['Customer chooses','Customers select a service, staff member, date, and available time.',['Service','Staff','Date','Time']],
- ['Appointment Engine checks','Availability, working hours, existing appointments, and booking rules are checked automatically.',['✓ Working hours','✓ Existing appointments','✓ Booking rules']],
+ ['BookPilot checks','Availability, working hours, existing appointments, and booking rules are checked automatically.',['✓ Working hours','✓ Existing appointments','✓ Booking rules']],
  ['Appointment is confirmed','The customer receives confirmation and the business gets the appointment recorded in the system.',['Confirmed','Recorded']]] as const;
 export default function HowItWorks(){return(
   <section id="how" className="scroll-mt-16 bg-slate-50 py-20 sm:py-28"><div className="wrap"><h2 className="h2">How it works</h2>

@@ -4,7 +4,7 @@ const L=[['Product','#product'],['How it works','#how'],['For businesses','#busi
 export default function Navbar(){const [o,setO]=useState(false);return(
   <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur">
     <div className="wrap flex h-16 items-center justify-between">
-      <a href="#" className="flex items-center gap-2 font-semibold tracking-tight"><span className="grid h-7 w-7 place-items-center rounded-lg bg-accent text-sm text-white">A</span>Appointment Engine</a>
+      <a href="#" className="flex items-center gap-2 font-semibold tracking-tight"><span className="grid h-7 w-7 place-items-center rounded-lg bg-accent text-sm text-white">B</span>BookPilot</a>
       <nav className="hidden gap-8 text-sm text-slate-600 md:flex">{L.map(([t,h])=><a key={h} href={h} className="hover:text-ink">{t}</a>)}</nav>
       <div className="hidden items-center gap-5 md:flex"><a href="/sign-in" className="text-sm text-slate-600 hover:text-ink">Sign in</a><a href="/sign-up" className="btn-p h-10 px-4 text-sm">Get started</a></div>
       <button aria-label="Toggle menu" aria-expanded={o} onClick={()=>setO(!o)} className="grid h-11 w-11 place-items-center rounded-lg border border-slate-200 md:hidden">
