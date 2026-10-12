@@ -15,6 +15,11 @@ services:
       - "traefik.http.routers.appointment-engine.tls=true"
       - "traefik.http.routers.appointment-engine.tls.certresolver=letsencrypt"
       - "traefik.http.services.appointment-engine.loadbalancer.server.port=3000"
+      - "traefik.http.routers.bookpilot.rule=Host(`boookpilot.xyz`) || Host(`www.boookpilot.xyz`)"
+      - "traefik.http.routers.bookpilot.entrypoints=https"
+      - "traefik.http.routers.bookpilot.tls=true"
+      - "traefik.http.routers.bookpilot.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.bookpilot.service=appointment-engine"
       - "traefik.docker.network=3kzforlisgqsxtaqgh3zwmbr"
 
 networks:
