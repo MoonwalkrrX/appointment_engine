@@ -23,7 +23,7 @@ export default function BookingWidget(){
   const clean=phone.replace(/[^\d+]/g,'');
   async function submit(){
     if(!time){setErr('Choose a time first.');return}
-    if(!moving&&(name.trim().length<2||!/^\+?\d{7,15}$/.test(clean))){setErr('Enter your name and a valid phone number (7–15 digits).');return}
+    if(!moving&&(name.trim().length<2||!/^\+?\d{7,15}$/.test(clean))){setErr('Enter your name and a valid WhatsApp number (7–15 digits).');return}
     setBusy(true);setErr('');
     try{
       if(moving&&booking){await rescheduleBooking(booking.id,booking.phone,date,time);setBooking({...booking,date,time})}
@@ -56,9 +56,10 @@ export default function BookingWidget(){
         {booting||loading?<div className="grid grid-cols-3 gap-2">{[0,1,2,3,4,5].map(i=><Skel key={i} c="h-11"/>)}</div>:
         slots.length===0?<p className="rounded-xl bg-slate-50 p-3 text-sm text-slate-600">No times available on this day. Try another date.</p>:
         <div className="grid grid-cols-3 gap-2">{slots.map(t=><button key={t} onClick={()=>{setTime(t);setErr('')}} aria-pressed={time===t} className={`h-11 rounded-xl border text-sm font-medium ${sel(time===t)}`}>{t}</button>)}</div>}</div>
-      {!moving&&<div className="grid gap-3 sm:grid-cols-2">{([['Name','text',name,setName,'Your full name','name'],['Phone','tel',phone,setPhone,'+234 …','tel']] as const).map(([l,ty,v,set,ph,ac])=>
+      {!moving&&<div className="grid gap-3 sm:grid-cols-2">{([['Name','text',name,setName,'Your full name','name'],['WhatsApp number','tel',phone,setPhone,'+234 …','tel']] as const).map(([l,ty,v,set,ph,ac])=>
         <label key={l} className="text-sm font-medium">{l}<input type={ty} value={v} onChange={e=>set(e.target.value)} placeholder={ph} autoComplete={ac}
           className="mt-1.5 h-12 w-full rounded-xl border border-slate-200 px-3.5 text-base font-normal outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"/></label>)}</div>}
+      {!moving&&<p className="-mt-2 text-xs text-slate-500">Use a number that’s on WhatsApp so we can reach you about your booking.</p>}
       {err&&<p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{err}</p>}
       <button onClick={submit} disabled={busy||loading||booting} className="btn-p w-full disabled:opacity-60">{busy?'Confirming…':moving?'Confirm new time':'Confirm appointment'}</button>
     </div>}
