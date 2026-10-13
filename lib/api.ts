@@ -38,3 +38,6 @@ export async function rescheduleBooking(id:string,phone:string,date:string,time:
   if(MOCK){await wait(900);if(taken(date,time,id))throw new ApiError('slot_unavailable',409);
     const b=store.get(id);if(b)store.set(id,{...b,date,time});return}
   await post('manage',{action:'reschedule',appointment_id:id,customer_phone:phone,new_start_time:start(date,time),timezone:TIMEZONE})}
+export async function joinEarlyAccess(p:{businessName:string;businessType:string;contact:string;website:string}):Promise<void>{
+  if(MOCK){await wait();return}
+  await post('early-access',{business_name:p.businessName,business_type:p.businessType,contact:p.contact,website:p.website})}

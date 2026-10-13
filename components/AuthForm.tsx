@@ -8,7 +8,7 @@ export default function AuthForm({mode}:{mode:'in'|'up'}){
   const set=(k:keyof typeof f)=>(e:React.ChangeEvent<HTMLInputElement>)=>setF({...f,[k]:e.target.value});
   async function submit(e:React.FormEvent){e.preventDefault();setErr('');
     if(up&&f.business.trim().length<2)return setErr('Enter your business name.');
-    if(!/^\S+@\S+\.\S+$/.test(f.email))return setErr('Enter a valid email address.');
+    if(!/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(f.email))return setErr('Enter a valid email address.');
     if(f.password.length<8)return setErr('Password must be at least 8 characters.');
     setBusy(true);
     try{up?await signUp({business:f.business.trim(),email:f.email.trim(),password:f.password}):await signIn({email:f.email.trim(),password:f.password});setDone(true)}

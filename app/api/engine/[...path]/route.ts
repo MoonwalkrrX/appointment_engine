@@ -1,7 +1,7 @@
 import {NextRequest,NextResponse} from 'next/server';
 const ROUTES:Record<string,string|undefined>={
   services:process.env.URL_SERVICES,staff:process.env.URL_STAFF,availability:process.env.URL_AVAILABILITY,
-  booking:process.env.URL_BOOKING,manage:process.env.URL_MANAGE};
+  booking:process.env.URL_BOOKING,manage:process.env.URL_MANAGE,'early-access':process.env.URL_EARLY_ACCESS};
 export async function POST(req:NextRequest,{params}:{params:{path:string[]}}){
   const path=params.path.join('/');
   if(!(path in ROUTES))return NextResponse.json({error:'not_found'},{status:404});
