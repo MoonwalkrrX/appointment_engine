@@ -10,7 +10,7 @@ export default function BookingWidget(){
   const [booting,setBooting]=useState(true);const [bootErr,setBootErr]=useState('');
   const [svc,setSvc]=useState('');const [stf,setStf]=useState('');const [date,setDate]=useState('');
   const [time,setTime]=useState<string|null>(null);const [slots,setSlots]=useState<string[]>([]);const [loading,setLoading]=useState(true);
-  const [name,setName]=useState('');const [phone,setPhone]=useState('');const [busy,setBusy]=useState(false);const [err,setErr]=useState('');
+  const [name,setName]=useState('');const [phone,setPhone]=useState('');const [email,setEmail]=useState('');const [busy,setBusy]=useState(false);const [err,setErr]=useState('');
   const [view,setView]=useState<'pick'|'done'|'cancelled'>('pick');const [booking,setBooking]=useState<Booking|null>(null);
   const [moving,setMoving]=useState(false);const [tick,setTick]=useState(0);
   useEffect(()=>{const d=nextDays();setDays(d);setDate(d[0].iso);
@@ -24,10 +24,11 @@ export default function BookingWidget(){
   async function submit(){
     if(!time){setErr('Choose a time first.');return}
     if(!moving&&(name.trim().length<2||!/^\+?\d{7,15}$/.test(clean))){setErr('Enter your name and a valid WhatsApp number (7–15 digits).');return}
+    if(!moving&&email.trim()&&!/^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(email.trim())){setErr('Enter a valid email address, or leave it blank.');return}
     setBusy(true);setErr('');
     try{
       if(moving&&booking){await rescheduleBooking(booking.id,booking.phone,date,time);setBooking({...booking,date,time})}
-      else setBooking(await createBooking({serviceId:svc,staffId:stf,date,time,name:name.trim(),phone:clean}));
+      else setBooking(await createBooking({serviceId:svc,staffId:stf,date,time,name:name.trim(),phone:clean,email:email.trim()}));
       setView('done');setMoving(false);
     }catch(e){
       if(e instanceof ApiError&&e.code==='slot_unavailable'){setErr(`${time} was just taken by someone else. Availability is refreshed — pick another time.`);setTick(t=>t+1)}
@@ -60,6 +61,7 @@ export default function BookingWidget(){
         <label key={l} className="text-sm font-medium">{l}<input type={ty} value={v} onChange={e=>set(e.target.value)} placeholder={ph} autoComplete={ac}
           className="mt-1.5 h-12 w-full rounded-xl border border-slate-200 px-3.5 text-base font-normal outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"/></label>)}</div>}
       {!moving&&<p className="-mt-2 text-xs text-slate-500">Use a number that’s on WhatsApp so we can reach you about your booking.</p>}
+      {!moving&&<label className="block text-sm font-medium">Email <span className="font-normal text-slate-500">(optional)</span><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@email.com" autoComplete="email" className="mt-1.5 h-12 w-full rounded-xl border border-slate-200 px-3.5 text-base font-normal outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"/><span className="mt-1 block text-xs font-normal text-slate-500">For your booking confirmation and reminders.</span></label>}
       {err&&<p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{err}</p>}
       <button onClick={submit} disabled={busy||loading||booting} className="btn-p w-full disabled:opacity-60">{busy?'Confirming…':moving?'Confirm new time':'Confirm appointment'}</button>
     </div>}

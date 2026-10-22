@@ -1,7 +1,7 @@
 import {SERVICES,STAFF,mockSlots} from './mockData';
 export type Service={id:string;name:string;minutes:number};
 export type Staff={id:string;name:string};
-export type Booking={id:string;serviceId:string;staffId:string;date:string;time:string;name:string;phone:string};
+export type Booking={id:string;serviceId:string;staffId:string;date:string;time:string;name:string;phone:string;email?:string};
 export class ApiError extends Error{constructor(public code:string,public status=400){super(code)}}
 const MOCK=process.env.NEXT_PUBLIC_USE_MOCK==='true';
 export const TIMEZONE=process.env.NEXT_PUBLIC_TIMEZONE||'Africa/Lagos';
@@ -29,7 +29,7 @@ export async function createBooking(b:Omit<Booking,'id'>):Promise<Booking>{
     if(!raced&&b.time==='16:00'){raced=true;throw new ApiError('slot_unavailable',409)}
     if(taken(b.date,b.time))throw new ApiError('slot_unavailable',409);
     const r={...b,id:'AE-'+Math.floor(10000+Math.random()*89999)};store.set(r.id,r);return r}
-  const j=await post<any>('booking',{service_id:b.serviceId,staff_id:b.staffId,customer_name:b.name,customer_phone:b.phone,start_time:start(b.date,b.time),timezone:TIMEZONE});
+  const j=await post<any>('booking',{service_id:b.serviceId,staff_id:b.staffId,customer_name:b.name,customer_phone:b.phone,customer_email:b.email||undefined,start_time:start(b.date,b.time),timezone:TIMEZONE});
   return {...b,id:String(j.booking?.id??j.appointment_id??j.id??'confirmed')}}
 export async function cancelBooking(id:string,phone:string):Promise<void>{
   if(MOCK){await wait(600);store.delete(id);return}
